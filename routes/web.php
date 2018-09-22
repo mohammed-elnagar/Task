@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('coursetro', function () {
+    return view('app.coursetro');
+});
+

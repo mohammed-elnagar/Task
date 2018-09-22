@@ -41,8 +41,10 @@
 </template>
 
 <script>
-    export default{
-        data(){
+    export default
+    {
+        data()
+        {
             return {
                 articles : [],
                 article: {
@@ -74,8 +76,10 @@
                     .catch(err => console.log(err));
             },
 
-            makePagination(meta, links){
-                let pagination = {
+            makePagination(meta, links)
+            {
+                let pagination =
+                {
                     current_page : meta.current_page,
                     last_page : meta.last_page,
                     next_page_url : links.next,
@@ -87,9 +91,12 @@
                         // console.log(pagination);
             },
 
-            deleteArticle(id){
-                if(confirm('Are you sure?')){
-                    fetch(`api/article/${id}`, {
+            deleteArticle(id)
+            {
+                if(confirm('Are you sure?'))
+                {
+                    fetch(`api/article/${id}`,
+                    {
                         method: 'delete'
                     })
                     .then(res => res.json)
