@@ -30,16 +30,12 @@
             </ul>
         </nav>
 
-        <div
-            class="card card-body mb-2"
-            v-for="article in articles" v-bind:key="article.id"
-        >
-        <h3 class=""> {{article.title}} - id {{article.key}} </h3>
-        <p> {{article.body}} </p>
-        <hr>
-        <button @click="editArticle(article)" class="btn btn-warning"> Edit </button>
-        <hr>
-        <button @click="deleteArticle(article.key)" class="btn btn-danger"> Delete </button>
+        <div class="card card-body mb-2" v-for="article in articles" v-bind:key="article.id">
+            <h3 class=""> {{article.title}} - id {{article.key}} </h3>
+            <p> {{article.body}} </p>
+            <hr>
+            <button @click="editArticle(article)" class="btn btn-warning mb-2"> Edit </button>
+            <button @click="deleteArticle(article.key)" class="btn btn-danger"> Delete </button>
         </div>
     </div>
 </template>

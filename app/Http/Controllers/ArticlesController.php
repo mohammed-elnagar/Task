@@ -26,18 +26,9 @@ class ArticlesController extends Controller
         return $article;
     }
 
-    // public function update($id, Reqest $request){
-
-    //     $article = Article::find($id);
-    //     $article->title = $request->title;
-    //     $article->body  = $request->body;
-    //     $article->save();
-    //     return $article;
-    // }
-
     public function destroy($id){
         $article = Article::find($id);
         $article->delete();
-        return true;
+        return $article;
     }
 }

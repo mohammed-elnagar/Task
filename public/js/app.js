@@ -13988,7 +13988,7 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);
-module.exports = __webpack_require__(44);
+module.exports = __webpack_require__(45);
 
 
 /***/ }),
@@ -47381,9 +47381,9 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(11)
 /* script */
-var __vue_script__ = __webpack_require__(49)
+var __vue_script__ = __webpack_require__(43)
 /* template */
-var __vue_template__ = __webpack_require__(43)
+var __vue_template__ = __webpack_require__(44)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -47423,6 +47423,152 @@ module.exports = Component.exports
 
 /***/ }),
 /* 43 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            articles: [],
+            article: {
+                id: '',
+                title: '',
+                body: ''
+            },
+            article_id: '',
+            pagination: {},
+            edit: false
+        };
+    },
+    created: function created() {
+        this.fetchArticles();
+    },
+
+
+    methods: {
+        fetchArticles: function fetchArticles(page_url) {
+            var _this = this;
+
+            var vm = this;
+            page_url = page_url || 'api/articles';
+            fetch(page_url).then(function (res) {
+                return res.json();
+            }).then(function (res) {
+                // console.log(res.data)
+                _this.articles = res.data;
+                vm.makePagination(res.meta, res.links);
+            }).catch(function (err) {
+                return console.log(err);
+            });
+        },
+        makePagination: function makePagination(meta, links) {
+            var pagination = {
+                current_page: meta.current_page,
+                last_page: meta.last_page,
+                next_page_url: links.next,
+                prev_page_url: links.prev,
+                total: meta.total
+            };
+
+            this.pagination = pagination;
+            // console.log(pagination);
+        },
+        deleteArticle: function deleteArticle(id) {
+            var _this2 = this;
+
+            if (confirm('Are you sure?')) {
+                fetch('api/article/' + id, {
+                    method: 'delete'
+                }).then(function (res) {
+                    return res.json;
+                }).then(function (data) {
+                    alert('Article Rrmoved!');
+                    _this2.fetchArticles();
+                }).catch(function (err) {
+                    return console.log(err);
+                });
+            }
+        },
+        addArticle: function addArticle() {
+            var _this3 = this;
+
+            if (this.edit === false) {
+                // Add
+                fetch('api/article', {
+                    method: 'post',
+                    body: JSON.stringify(this.article),
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                }).then(function (res) {
+                    return res.json;
+                }).then(function (data) {
+                    _this3.article.title = '', _this3.article.body = '';
+                    alert('Article Added');
+                    _this3.fetchArticles();
+                }).catch(function (err) {
+                    return console.log(err);
+                });
+            } else {
+                // Update
+            }
+        },
+        editArticle: function editArticle(article) {
+            this.edit = true;
+            this.article.id = article.id;
+            this.article.article_id = article.id;
+            this.article.title = article.title;
+            this.article.body = article.body;
+        }
+    }
+});
+
+/***/ }),
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -47592,7 +47738,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-warning",
+                staticClass: "btn btn-warning mb-2",
                 on: {
                   click: function($event) {
                     _vm.editArticle(article)
@@ -47601,8 +47747,6 @@ var render = function() {
               },
               [_vm._v(" Edit ")]
             ),
-            _vm._v(" "),
-            _c("hr"),
             _vm._v(" "),
             _c(
               "button",
@@ -47634,164 +47778,10 @@ if (false) {
 }
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            articles: [],
-            article: {
-                id: '',
-                title: '',
-                body: ''
-            },
-            article_id: '',
-            pagination: {},
-            edit: false
-        };
-    },
-    created: function created() {
-        this.fetchArticles();
-    },
-
-
-    methods: {
-        fetchArticles: function fetchArticles(page_url) {
-            var _this = this;
-
-            var vm = this;
-            page_url = page_url || 'api/articles';
-            fetch(page_url).then(function (res) {
-                return res.json();
-            }).then(function (res) {
-                // console.log(res.data)
-                _this.articles = res.data;
-                vm.makePagination(res.meta, res.links);
-            }).catch(function (err) {
-                return console.log(err);
-            });
-        },
-        makePagination: function makePagination(meta, links) {
-            var pagination = {
-                current_page: meta.current_page,
-                last_page: meta.last_page,
-                next_page_url: links.next,
-                prev_page_url: links.prev,
-                total: meta.total
-            };
-
-            this.pagination = pagination;
-            // console.log(pagination);
-        },
-        deleteArticle: function deleteArticle(id) {
-            var _this2 = this;
-
-            if (confirm('Are you sure?')) {
-                fetch('api/article/' + id, {
-                    method: 'delete'
-                }).then(function (res) {
-                    return res.json;
-                }).then(function (data) {
-                    alert('Article Rrmoved!');
-                    _this2.fetchArticles();
-                }).catch(function (err) {
-                    return console.log(err);
-                });
-            }
-        },
-        addArticle: function addArticle() {
-            var _this3 = this;
-
-            if (this.edit === false) {
-                // Add
-                fetch('api/article', {
-                    method: 'post',
-                    body: JSON.stringify(this.article),
-                    headers: {
-                        'content-type': 'application/json'
-                    }
-                }).then(function (res) {
-                    return res.json;
-                }).then(function (data) {
-                    _this3.article.title = '', _this3.article.body = '';
-                    alert('Article Added');
-                    _this3.fetchArticles();
-                }).catch(function (err) {
-                    return console.log(err);
-                });
-            } else {
-                // Update
-            }
-        },
-        editArticle: function editArticle(article) {
-            this.edit = true;
-            this.article.id = article.id;
-            this.article.article_id = article.id;
-            this.article.title = article.title;
-            this.article.body = article.body;
-        }
-    }
-});
 
 /***/ })
 /******/ ]);
