@@ -7,14 +7,23 @@
         <div class="text-center" style="width:50% ;margin:auto">
             <h4 class="text-center"> {{ subjectLesson4 }}</h4>
             <form @submit.prevent="addSkill">
-                <input class="mb-1" type="text" style="width:100%" v-model="skill" placeholder="Enter skill you have...">
-                <!-- <button type="submit">Add skill</button> -->
+                <input class="mb-1" type="text" style="width:100%" v-model="skill" v-validate="'min:5'" name="skill" placeholder="Enter skill you have...">
+                <transition name="alert-in" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
+
+                    <p style="background:#ddd" v-if="errors.has('skill')">{{ errors.first('skill')}}</p>
+                </transition>
+                <!-- <input type="checkbox" id="checkbox" v-model="checked"/> -->
             </form>
             <!-- <br> -->
             <!-- {{ skill }} -->
-            <ul>
-                <li v-for="(skill, key) in skills"> {{ key + 1}} - {{  skill.skill }}</li>
-            </ul>
+            <div>
+                <ul>
+                    <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
+                        <li v-for="(skill, index) in skills" :key='index'> {{ index + 1}} - {{  skill.skill }}</li>
+                    </transition-group>
+                </ul>
+            </div>
+            <p style="background:#ddd"> This are the skills that you possess. </p>
         </div>
         <hr>
         <b>// Conditional (ternary) Operator</b>
@@ -40,6 +49,9 @@ export default {
     data(){
 
         return{
+            // form
+            // checked:false,
+
             title:"My Course",
             btnState:true,
             subjectLesson4: "Model binding",
@@ -72,8 +84,16 @@ export default {
 
         },
         addSkill(){
-            this.skills.push({skill: this.skill})
-            this.skill = '';
+            this.$validator.validateAll().then((result) => {
+                if(result){
+                    console.log(this.$validator.validateAll());
+                    this.skills.push({skill: this.skill})
+                    this.skill = '';
+                }else{
+                    console.log('Not valid')
+                }
+            })
+            // console.log('This checkbox value is ..' + this.checked)
         }
     }
 }
