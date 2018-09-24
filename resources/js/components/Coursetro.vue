@@ -1,7 +1,5 @@
 <template>
     <div class="wrapper">
-
-
         <h1 class="text-center">{{ title }}</h1>
         <hr>
         <div class="text-center" style="width:50% ;margin:auto">

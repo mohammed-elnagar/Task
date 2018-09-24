@@ -3,7 +3,8 @@
         <div class="container">
             <a href="#" class="navbar-brand">Laravel-V</a>
         </div>
-        <!-- <router-link to="/"> Home </router-link> -->
-        <!-- <router-link to="/about"> About </router-link> -->
+            <!-- <router-link to="/vue/example"> <a href="#">Home</a>  </router-link> -->
+            <!-- <router-link to="/about"> About </router-link> -->
+        <!-- <router-link to="/vue/example">Hello</router-link> -->
     </nav>
 </template>

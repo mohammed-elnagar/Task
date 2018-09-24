@@ -15,11 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('coursetro', function () {
-    return view('app.coursetro');
-});
+Route::get('coursetro', 'HandleViewController@coursto');
+Route::get('example1', 'HandleViewController@example1');
 
-Route::get('/vue/{vue_capture?}', function () {
+
+Route::get('vue/{vue_capture?}', function () {
     return view('vue.index');
    })->where('vue_capture', '[\/\w\.-]*');
 

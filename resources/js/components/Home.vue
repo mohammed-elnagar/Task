@@ -1,7 +1,7 @@
 <template>
-    @{{ message }}
-    <router-link to="/vue/example"><a>url to example</a></router-link>
-    <h1>Helllo</h1>
+    <!-- @{{ message }} -->
+    <!-- <router-link to="/vue/example"><a>url to example</a></router-link> -->
+    <div></div>
 </template>
 <script>
 export default {
