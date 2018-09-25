@@ -15,4 +15,9 @@ class HandleViewController extends Controller
         return view('app.example1');
     }
 
+    public function object(){
+        return view('app.object');
+    }
+
+
 }

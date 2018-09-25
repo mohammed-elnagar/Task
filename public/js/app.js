@@ -14019,6 +14019,7 @@ Vue.component('coursetro', __webpack_require__(44));
 Vue.component('navbar', __webpack_require__(52));
 Vue.component('articles', __webpack_require__(54));
 Vue.component('slider', __webpack_require__(57));
+Vue.component('objects', __webpack_require__(63));
 
 var app = new Vue({
   el: '#app'
@@ -55317,11 +55318,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            list: [1, 2, 3, 5],
             list2: [{ name: "Mohammed", age: 26 }, { name: "Ahmed", age: 20 }, { name: "eslam", age: 20 }],
             newVal: ''
         };
@@ -55329,11 +55353,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
-        addItem: function addItem(newVal) {
-            this.list2.push(newVal);
+        addItem: function addItem() {
+            this.list.push(this.newVal);
             this.newVal = '';
         },
-
         deleteItem: function deleteItem(index) {
             this.list2.splice(index, 1);
         }
@@ -55351,51 +55374,18 @@ var render = function() {
   return _c("div", [
     _vm._m(0),
     _vm._v(" "),
-    true
+    false
       ? _c(
           "div",
-          [
-            _vm._l(_vm.list2, function(item, key) {
-              return _c("div", { key: key }, [
-                _vm._v(" " + _vm._s(item.name) + " ")
-              ])
-            }),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.newVal,
-                  expression: "newVal"
-                }
-              ],
-              domProps: { value: _vm.newVal },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.newVal = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                on: {
-                  click: function($event) {
-                    _vm.addItem(_vm.newVal)
-                  }
-                }
-              },
-              [_vm._v("Add")]
-            )
-          ],
-          2
+          _vm._l(_vm.list2, function(item, key) {
+            return _c("div", { key: key }, [
+              _vm._v(" " + _vm._s(item.name) + " ")
+            ])
+          })
         )
       : _vm._e(),
+    _vm._v(" "),
+    _c("hr"),
     _vm._v(" "),
     _c(
       "div",
@@ -55409,6 +55399,38 @@ var render = function() {
           : _vm._e()
       })
     ),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c(
+      "div",
+      _vm._l(_vm.list2, function(item, key) {
+        return _c("div", { key: key }, [
+          _c("span", [_vm._v("Name : " + _vm._s(item.name) + " ")]),
+          _vm._v(" "),
+          item.age > 20
+            ? _c("span", [_vm._v("Age :  " + _vm._s(item.age) + " ")])
+            : _vm._e()
+        ])
+      })
+    ),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c(
+      "div",
+      _vm._l(_vm.list2, function(item, key) {
+        return key < 2
+          ? _c("div", { key: key }, [
+              _c("span", [_vm._v("Name : " + _vm._s(item.name) + " ")]),
+              _vm._v(" "),
+              _c("span", [_vm._v("Age :  " + _vm._s(item.age) + " ")])
+            ])
+          : _vm._e()
+      })
+    ),
+    _vm._v(" "),
+    _c("hr"),
     _vm._v(" "),
     _c(
       "div",
@@ -55467,7 +55489,7 @@ var render = function() {
             {
               on: {
                 click: function($event) {
-                  _vm.delteItem(index)
+                  _vm.deleteItem(index)
                 }
               }
             },
@@ -56770,6 +56792,251 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(64)
+/* template */
+var __vue_template__ = __webpack_require__(65)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/Object.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-8bd2cc2c", Component.options)
+  } else {
+    hotAPI.reload("data-v-8bd2cc2c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 64 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            list: [1, 2, 3, 5],
+
+            user: { name: "Mohammed", age: 26 },
+            user2: { name: "Mohammed", age: 26 },
+
+            users: [{ name: "Mohammed", age: 26 }, { name: "Ahmed", age: 26 }, { name: "Ramy", age: 26 }]
+        };
+    },
+
+    methods: {
+        addValue: function addValue() {
+            this.list.push(10);
+        },
+        changeList: function changeList() {
+            this.list = [10, 20, 30, 50];
+        },
+        change2nd: function change2nd() {
+            Vue.set(this.list, 2, 200);
+        },
+        addNewValue: function addNewValue() {
+            Vue.set(this.user, 'new', "new value");
+        }
+    }
+});
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _vm._l(_vm.list, function(item, index) {
+        return _c("div", { key: index }, [_vm._v(" " + _vm._s(item))])
+      }),
+      _vm._v(" "),
+      _c("button", { on: { click: _vm.addValue } }, [_vm._v(" Add ")]),
+      _vm._v(" "),
+      _c("button", { on: { click: _vm.changeList } }, [
+        _vm._v(" Change list ")
+      ]),
+      _vm._v(" "),
+      _c("button", { on: { click: _vm.change2nd } }, [_vm._v(" Change 2nd  ")]),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c(
+        "div",
+        [
+          _vm._l(_vm.user, function(item, key, index) {
+            return _c("div", { key: index }, [
+              _c("span", [
+                _vm._v(
+                  " " +
+                    _vm._s(index + 1) +
+                    " " +
+                    _vm._s(key) +
+                    " " +
+                    _vm._s(item) +
+                    "  "
+                )
+              ])
+            ])
+          }),
+          _vm._v(" "),
+          _c("button", { on: { click: _vm.addNewValue } }, [
+            _vm._v("addNewValue")
+          ])
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c(
+        "div",
+        _vm._l(_vm.user2, function(item, key, index) {
+          return _c("div", { key: index }, [
+            _c("span", [
+              _vm._v(
+                " " +
+                  _vm._s(index + 1) +
+                  " " +
+                  _vm._s(key) +
+                  " " +
+                  _vm._s(item) +
+                  "  "
+              )
+            ])
+          ])
+        })
+      ),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c(
+        "div",
+        _vm._l(_vm.users, function(user, index) {
+          return _c(
+            "div",
+            { key: index },
+            [
+              _vm._v("\n            #" + _vm._s(index + 1) + "\n            "),
+              _vm._l(user, function(item, key, index) {
+                return _c("span", { key: index }, [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(key) +
+                      " " +
+                      _vm._s(item) +
+                      "\n            "
+                  )
+                ])
+              })
+            ],
+            2
+          )
+        })
+      ),
+      _vm._v(" "),
+      _c("hr")
+    ],
+    2
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("h1", [_vm._v("Object and nested loop & Vue.set")])])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-8bd2cc2c", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

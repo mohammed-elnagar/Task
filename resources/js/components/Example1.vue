@@ -1,23 +1,45 @@
 <template>
     <div>
         <div><h1>Test</h1></div>
-        <div v-if="true">
+        <!-- <div>
+            <div v-for="(item, key) in list" :key='key'>
+                {{ item }}
+            </div>
+            <form @submit.prevent="addItem">
+                <input v-model="newVal">
+            </form>
+        </div> -->
+        <div v-if="false">
             <div v-for="(item, key) in list2" :key='key'> {{ item.name }} </div>
-            <input v-model="newVal" />
-            <button @click="addItem(newVal)">Add</button>
         </div>
+        <hr>
         <div>
             <div v-for="(item, key) in list2"  :key='key' v-if="item.age > 20">
                 <span>Name : {{ item.name }} </span>
                 <span>Age :  {{ item.age }} </span>
             </div>
         </div>
+        <hr>
+        <div>
+            <div v-for="(item, key) in list2"  :key='key'>
+                <span >Name : {{ item.name }} </span>
+                <span v-if="item.age > 20">Age :  {{ item.age }} </span>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <div v-for="(item, key) in list2"  :key='key' v-if="key < 2">
+                <span>Name : {{ item.name }} </span>
+                <span>Age :  {{ item.age }} </span>
+            </div>
+        </div>
+        <hr>
         <div>
             <div v-for="(item, index) in list2" :key='index'>
                 <h3># {{ index+1 }} </h3>
                 <div> Name : <input v-model="item.name"></div>
                 <div> Age : <input v-model="item.age"></div>
-                <button @click="delteItem(index)">Delete this</button>
+                <button @click="deleteItem(index)">Delete this</button>
             </div>
         </div>
     </div>
@@ -28,6 +50,9 @@
     export default {
         data(){
             return {
+                list:[
+                    1, 2, 3, 5
+                ],
                 list2:[
                     {name: "Mohammed", age:26},
                     {name: "Ahmed", age:20},
@@ -38,11 +63,11 @@
         },
 
         methods:{
-            addItem(newVal){
-                this.list2.push(newVal)
+            addItem(){
+                this.list.push(this.newVal)
                 this.newVal = '';
             },
-	        deleteItem: function(index){
+	        deleteItem(index){
                 this.list2.splice(index, 1);
             }
         }
