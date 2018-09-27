@@ -14330,6 +14330,7 @@ Vue.component('navbar', __webpack_require__(52));
 Vue.component('articles', __webpack_require__(54));
 Vue.component('slider', __webpack_require__(57));
 Vue.component('objects', __webpack_require__(59));
+Vue.component('todolist', __webpack_require__(68));
 
 var app = new Vue({
   el: '#app'
@@ -56870,7 +56871,7 @@ if(false) {
 
 exports = module.exports = __webpack_require__(12)(false);
 // imports
-
+exports.push([module.i, "@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);", ""]);
 
 // module
 exports.push([module.i, "\n.error{\n    border: 1px solid red;\n}\n", ""]);
@@ -56884,6 +56885,8 @@ exports.push([module.i, "\n.error{\n    border: 1px solid red;\n}\n", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -57021,8 +57024,6 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
       _c("input", {
         directives: [
           {
@@ -57044,20 +57045,31 @@ var render = function() {
       }),
       _c("br"),
       _vm._v(" "),
-      _vm._l(parseInt(_vm.rate), function(item) {
-        return _c(
-          "span",
-          { key: item, staticClass: "glyphicon glyphicon-star" },
-          [_vm._v("1")]
-        )
+      _vm._l(parseInt(_vm.rate), function(item, index) {
+        return _c("span", {
+          key: index,
+          staticClass: "fa fa-star",
+          on: {
+            click: function($event) {
+              _vm.rate = item
+            }
+          }
+        })
       }),
-      _vm._l(5 - _vm.rate, function(item) {
-        return _c("span", { key: item, staticClass: "fa fa-star-o" }, [
-          _vm._v("0")
-        ])
+      _vm._l(5 - _vm.rate, function(item, index) {
+        return _c("span", {
+          key: index,
+          staticClass: "fa fa-star-o",
+          on: {
+            click: function($event) {
+              _vm.rate = item + _vm.rate
+            }
+          }
+        })
       }),
       _vm._v(" "),
       _c("hr"),
+      _vm._v("1\n    "),
       _vm._v(" "),
       _c("h4", [_vm._v(" Filter data ")]),
       _vm._v(" "),
@@ -57250,6 +57262,563 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(76)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(72)
+/* template */
+var __vue_template__ = __webpack_require__(75)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-30436d6f"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/TodoList.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-30436d6f", Component.options)
+  } else {
+    hotAPI.reload("data-v-30436d6f", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var filters = {
+    all: function all(todos) {
+        return todos;
+    },
+    active: function active(todos) {
+        return todos.filter(function (todo) {
+            return !todo.completed;
+        });
+    },
+    completed: function completed(todos) {
+        return todos.filter(function (todo) {
+            return todo.completed;
+        });
+    }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            todos: [{ title: 'test1', completed: true }, { title: 'test2', completed: false }],
+            newTodo: '',
+            visibility: 'all',
+            editingTodo: null
+
+        };
+    },
+
+    computed: {
+        filtredTodos: function filtredTodos() {
+            return filters[this.visibility](this.todos);
+        },
+        remaningTodos: function remaningTodos() {
+            return filters.active(this.todos).length;
+        },
+        remaningText: function remaningText() {
+            return this.remaningTodos > 1 ? 'items' : 'item';
+        },
+
+        // allDone:{
+        //     get: function(){
+        //         return this.remaningTodos === 0;
+        //     }
+        // }
+        allDone: {
+            get: function get() {
+                return this.remaningTodos === 0;
+            },
+            set: function set(value) {
+                this.todos.forEach(function (todo) {
+                    todo.completed = value;
+                });
+            }
+        }
+    },
+    methods: {
+        deleteTodo: function deleteTodo(todo) {
+            // console.log(this.todos.indexOf(todo));
+            if (confirm('Are you sure?')) {
+                this.todos.splice(this.todos.indexOf(todo), 1);
+                // this.todos.shift(todo);
+            }
+        },
+        addTodo: function addTodo() {
+            if (this.newTodo.length < 5) {
+                alert('The new task less than 5 characters');
+            } else {
+                this.todos.push({
+                    title: this.newTodo,
+                    completed: false
+                });
+                this.newTodo = '';
+            }
+        },
+        clearCompleted: function clearCompleted() {
+            this.todos = filters.active(this.todos);
+        },
+        editTodo: function editTodo(todo) {
+            console.log(todo);
+            this.editingTodo = todo;
+        },
+        editingDone: function editingDone() {
+            this.editingTodo = null;
+        }
+    }
+});
+
+/***/ }),
+/* 73 */,
+/* 74 */,
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", { staticClass: "todoapp" }, [
+    _c("header", { staticClass: "header" }, [
+      _c("h1", { staticClass: "mt-4" }, [_vm._v("Todos")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.newTodo,
+            expression: "newTodo"
+          }
+        ],
+        staticClass: "new-todo",
+        attrs: { autocomplete: "off", placeholder: "What needs to be done?" },
+        domProps: { value: _vm.newTodo },
+        on: {
+          keyup: function($event) {
+            if (
+              !("button" in $event) &&
+              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+            ) {
+              return null
+            }
+            return _vm.addTodo($event)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.newTodo = $event.target.value
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("section", { staticClass: "main" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.allDone,
+            expression: "allDone"
+          }
+        ],
+        staticClass: "toggle-all",
+        attrs: { id: "toggle-all", type: "checkbox" },
+        domProps: {
+          checked: Array.isArray(_vm.allDone)
+            ? _vm._i(_vm.allDone, null) > -1
+            : _vm.allDone
+        },
+        on: {
+          change: function($event) {
+            var $$a = _vm.allDone,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = null,
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 && (_vm.allDone = $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  (_vm.allDone = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+              }
+            } else {
+              _vm.allDone = $$c
+            }
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "toggle-all" } }, [
+        _vm._v("Mark all as complete")
+      ]),
+      _vm._v(" "),
+      _c(
+        "ul",
+        { staticClass: "todo-list" },
+        _vm._l(_vm.filtredTodos, function(todo, index) {
+          return _c(
+            "li",
+            {
+              key: index,
+              staticClass: "todo",
+              class: {
+                completed: todo.completed,
+                editing: todo == _vm.editingTodo
+              }
+            },
+            [
+              _c("div", { staticClass: "view" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: todo.completed,
+                      expression: "todo.completed"
+                    }
+                  ],
+                  staticClass: "toggle",
+                  attrs: { type: "checkbox" },
+                  domProps: {
+                    checked: Array.isArray(todo.completed)
+                      ? _vm._i(todo.completed, null) > -1
+                      : todo.completed
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = todo.completed,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(todo, "completed", $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              todo,
+                              "completed",
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(todo, "completed", $$c)
+                      }
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    on: {
+                      dblclick: function($event) {
+                        _vm.editTodo(todo)
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(todo.title))]
+                ),
+                _vm._v(" "),
+                _c("button", {
+                  staticClass: "destroy",
+                  on: {
+                    click: function($event) {
+                      _vm.deleteTodo(todo)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: todo.title,
+                    expression: "todo.title"
+                  }
+                ],
+                staticClass: "edit",
+                attrs: { type: "text" },
+                domProps: { value: todo.title },
+                on: {
+                  keyup: function($event) {
+                    if (
+                      !("button" in $event) &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    _vm.editingDone()
+                  },
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(todo, "title", $event.target.value)
+                  }
+                }
+              })
+            ]
+          )
+        })
+      ),
+      _vm._v(" "),
+      _vm.newTodo !== ""
+        ? _c("div", { staticStyle: { position: "relative" } }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "p",
+              {
+                staticClass: "todo writing",
+                staticStyle: { background: "#eeeeef" }
+              },
+              [_vm._v(" " + _vm._s(_vm.newTodo))]
+            )
+          ])
+        : _vm._e()
+    ]),
+    _vm._v(" "),
+    _c("footer", { staticClass: "footer" }, [
+      _c("span", { staticClass: "todo-count" }, [
+        _c("strong", [_vm._v(_vm._s(_vm.remaningTodos))]),
+        _vm._v(" " + _vm._s(_vm.remaningText) + " left\n            ")
+      ]),
+      _vm._v(" "),
+      _c("ul", { staticClass: "filters" }, [
+        _c("li", [
+          _c(
+            "a",
+            {
+              class: { selected: _vm.visibility == "all" },
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  _vm.visibility = "all"
+                }
+              }
+            },
+            [_vm._v("All")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            {
+              class: { selected: _vm.visibility == "active" },
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  _vm.visibility = "active"
+                }
+              }
+            },
+            [_vm._v("Active")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            {
+              class: { selected: _vm.visibility == "completed" },
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  _vm.visibility = "completed"
+                }
+              }
+            },
+            [_vm._v("Completed")]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "clear-completed", on: { click: _vm.clearCompleted } },
+        [_vm._v("\n            Clear completed\n        ")]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "test" }, [
+      _c("img", {
+        attrs: {
+          width: "100%",
+          src: __webpack_require__(78)
+        }
+      })
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-30436d6f", module.exports)
+  }
+}
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(77);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(13)("6bff8e7b", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-30436d6f\",\"scoped\":true,\"hasInlineConfig\":true}!../../../node_modules/sass-loader/lib/loader.js!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TodoList.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-30436d6f\",\"scoped\":true,\"hasInlineConfig\":true}!../../../node_modules/sass-loader/lib/loader.js!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TodoList.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(12)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n@charset \"UTF-8\";\n.test[data-v-30436d6f] {\n  width: 50px;\n  height: 50px;\n  position: absolute;\n  top: 20%;\n  left: 0.5%;\n}\n.writing[data-v-30436d6f] {\n  padding: 15px 60px;\n  border-top: 1px solid #ddd;\n  font-size: 20px;\n  margin: 0;\n}\nbutton[data-v-30436d6f] {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  background: none;\n  font-size: 100%;\n  vertical-align: baseline;\n  font-family: inherit;\n  font-weight: inherit;\n  color: inherit;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n       appearance: none;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n[data-v-30436d6f]:focus {\n  outline: 0;\n}\n.hidden[data-v-30436d6f] {\n  display: none;\n}\n.todoapp[data-v-30436d6f] {\n  background: #fff;\n  margin: 130px 0 40px 0;\n  position: relative;\n  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);\n          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);\n}\n.todoapp input[data-v-30436d6f]::-webkit-input-placeholder {\n  font-style: italic;\n  font-weight: 300;\n  color: #e6e6e6;\n}\n.todoapp input[data-v-30436d6f]::-moz-placeholder {\n  font-style: italic;\n  font-weight: 300;\n  color: #e6e6e6;\n}\n.todoapp input[data-v-30436d6f]::input-placeholder {\n  font-style: italic;\n  font-weight: 300;\n  color: #e6e6e6;\n}\n.todoapp h1[data-v-30436d6f] {\n  position: absolute;\n  top: -155px;\n  width: 100%;\n  font-size: 100px;\n  font-weight: 100;\n  text-align: center;\n  color: rgba(175, 47, 47, 0.15);\n  -webkit-text-rendering: optimizeLegibility;\n  -moz-text-rendering: optimizeLegibility;\n  text-rendering: optimizeLegibility;\n}\n.new-todo[data-v-30436d6f],\n.edit[data-v-30436d6f] {\n  position: relative;\n  margin: 0;\n  width: 100%;\n  font-size: 24px;\n  font-family: inherit;\n  font-weight: inherit;\n  line-height: 1.4em;\n  border: 0;\n  color: inherit;\n  padding: 6px;\n  border: 1px solid #999;\n  -webkit-box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);\n          box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  width: 93% !important;\n}\n.new-todo[data-v-30436d6f] {\n  padding: 16px 16px 16px 60px;\n  border: none;\n  background: rgba(0, 0, 0, 0.003);\n  -webkit-box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);\n          box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);\n}\n.main[data-v-30436d6f] {\n  position: relative;\n  z-index: 2;\n  border-top: 1px solid #e6e6e6;\n}\n.toggle-all[data-v-30436d6f] {\n  text-align: center;\n  border: none;\n  /* Mobile Safari */\n  opacity: 0;\n  position: absolute;\n}\n.toggle-all + label[data-v-30436d6f] {\n  width: 60px;\n  height: 34px;\n  font-size: 0;\n  position: absolute;\n  top: -52px;\n  left: -13px;\n  -webkit-transform: rotate(90deg);\n  transform: rotate(90deg);\n}\n.toggle-all + label[data-v-30436d6f]:before {\n  content: '\\276F';\n  font-size: 22px;\n  color: #e6e6e6;\n  padding: 10px 27px 10px 27px;\n}\n.toggle-all:checked + label[data-v-30436d6f]:before {\n  color: #737373;\n}\n.todo-list[data-v-30436d6f] {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n.todo-list li[data-v-30436d6f] {\n  position: relative;\n  font-size: 24px;\n  border-bottom: 1px solid #ededed;\n}\n.todo-list li[data-v-30436d6f]:last-child {\n  border-bottom: none;\n}\n.todo-list li.editing[data-v-30436d6f] {\n  border-bottom: none;\n  padding: 0;\n}\n.todo-list li.editing .edit[data-v-30436d6f] {\n  display: block;\n  width: 506px;\n  padding: 12px 16px;\n  margin: 0 0 0 43px;\n}\n.todo-list li.editing .view[data-v-30436d6f] {\n  display: none;\n}\n.todo-list li .toggle[data-v-30436d6f] {\n  text-align: center;\n  width: 40px;\n  /* auto, since non-WebKit browsers doesn't support input styling */\n  height: auto;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  margin: auto 0;\n  border: none;\n  /* Mobile Safari */\n  -webkit-appearance: none;\n  -moz-appearance: none;\n       appearance: none;\n}\n.todo-list li .toggle[data-v-30436d6f] {\n  opacity: 0;\n}\n.todo-list li .toggle + label[data-v-30436d6f] {\n  /*\n\t\tFirefox requires `#` to be escaped - https://bugzilla.mozilla.org/show_bug.cgi?id=922433\n\t\tIE and Edge requires *everything* to be escaped to render, so we do that instead of just the `#` - https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/7157459/\n\t*/\n  background-image: url(\"data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23ededed%22%20stroke-width%3D%223%22/%3E%3C/svg%3E\");\n  background-repeat: no-repeat;\n  background-position: center left;\n}\n.todo-list li .toggle:checked + label[data-v-30436d6f] {\n  background-image: url(\"data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23bddad5%22%20stroke-width%3D%223%22/%3E%3Cpath%20fill%3D%22%235dc2af%22%20d%3D%22M72%2025L42%2071%2027%2056l-4%204%2020%2020%2034-52z%22/%3E%3C/svg%3E\");\n}\n.todo-list li label[data-v-30436d6f] {\n  word-break: break-all;\n  padding: 15px 15px 15px 60px;\n  display: block;\n  line-height: 1.2;\n  -webkit-transition: color 0.4s;\n  transition: color 0.4s;\n}\n.todo-list li.completed label[data-v-30436d6f] {\n  color: #d9d9d9;\n  text-decoration: line-through;\n}\n.todo-list li .destroy[data-v-30436d6f] {\n  display: none;\n  position: absolute;\n  top: 0;\n  right: 10px;\n  bottom: 0;\n  width: 40px;\n  height: 40px;\n  margin: auto 0;\n  font-size: 30px;\n  color: #cc9a9a;\n  margin-bottom: 11px;\n  -webkit-transition: color 0.2s ease-out;\n  transition: color 0.2s ease-out;\n}\n.todo-list li .destroy[data-v-30436d6f]:hover {\n  color: #af5b5e;\n}\n.todo-list li .destroy[data-v-30436d6f]:after {\n  content: '\\D7';\n}\n.todo-list li:hover .destroy[data-v-30436d6f] {\n  display: block;\n}\n.todo-list li .edit[data-v-30436d6f] {\n  display: none;\n}\n.todo-list li.editing[data-v-30436d6f]:last-child {\n  margin-bottom: -1px;\n}\n.footer[data-v-30436d6f] {\n  color: #777;\n  padding: 10px 15px;\n  height: 45px;\n  text-align: center;\n  border-top: 1px solid #e6e6e6;\n}\n.footer[data-v-30436d6f]:before {\n  content: '';\n  position: absolute;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  height: 50px;\n  overflow: hidden;\n  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);\n          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);\n}\n.todo-count[data-v-30436d6f] {\n  float: left;\n  text-align: left;\n}\n.todo-count strong[data-v-30436d6f] {\n  font-weight: 300;\n}\n.filters[data-v-30436d6f] {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n  position: absolute;\n  right: 0;\n  left: 0;\n}\n.filters li[data-v-30436d6f] {\n  display: inline;\n}\n.filters li a[data-v-30436d6f] {\n  color: inherit;\n  margin: 3px;\n  padding: 3px 7px;\n  text-decoration: none;\n  border: 1px solid transparent;\n  border-radius: 3px;\n}\n.filters li a[data-v-30436d6f]:hover {\n  border-color: rgba(175, 47, 47, 0.1);\n}\n.filters li a.selected[data-v-30436d6f] {\n  border-color: rgba(175, 47, 47, 0.2);\n}\n.clear-completed[data-v-30436d6f],\nhtml .clear-completed[data-v-30436d6f]:active {\n  float: right;\n  position: relative;\n  line-height: 20px;\n  text-decoration: none;\n  cursor: pointer;\n}\n.clear-completed[data-v-30436d6f]:hover {\n  text-decoration: underline;\n}\n.info[data-v-30436d6f] {\n  margin: 65px auto 0;\n  color: #bfbfbf;\n  font-size: 10px;\n  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);\n  text-align: center;\n}\n.info p[data-v-30436d6f] {\n  line-height: 1;\n}\n.info a[data-v-30436d6f] {\n  color: inherit;\n  text-decoration: none;\n  font-weight: 400;\n}\n.info a[data-v-30436d6f]:hover {\n  text-decoration: underline;\n}\n\n/*\n\tHack to remove background from Mobile Safari.\n\tCan't use it globally since it destroys checkboxes in Firefox\n*/\n@media screen and (-webkit-min-device-pixel-ratio: 0) {\n.toggle-all[data-v-30436d6f],\n  .todo-list li .toggle[data-v-30436d6f] {\n    background: none;\n}\n.todo-list li .toggle[data-v-30436d6f] {\n    height: 40px;\n}\n}\n@media (max-width: 430px) {\n.footer[data-v-30436d6f] {\n    height: 50px;\n}\n.filters[data-v-30436d6f] {\n    bottom: 10px;\n}\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports) {
+
+module.exports = "/images/dots_2.gif?ebd1e7436c647d2743f18d03b0f172fa";
 
 /***/ })
 /******/ ]);

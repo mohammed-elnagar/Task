@@ -1,10 +1,12 @@
 <template>
     <div>
         <div><h1>Object and nested loop & Vue.set</h1></div>
-        <hr>
+        <!-- <hr>
+        <div v-for="i in 10" :key="i"> {{ i }}</div>
+        <hr> -->
         <input v-model="rate"><br>
-        <span class="glyphicon glyphicon-star" v-for="item in parseInt(rate)" :key="item">1</span><span class="fa fa-star-o" :key="item" v-for="item in 5-rate">0</span>
-        <hr>
+        <span @click="rate=item" class="fa fa-star" v-for="(item, index) in parseInt(rate)" :key="index"></span><span @click="rate=item+rate" class="fa fa-star-o" :key="index" v-for="(item, index) in 5-rate"></span>
+        <hr>1
         <!-- <input @keyup.enter=" evenNumbers()" > -->
         <h4> Filter data </h4>
         <ul>
@@ -129,6 +131,7 @@
 </script>
 
 <style>
+    @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
     .error{
         border: 1px solid red;
     }

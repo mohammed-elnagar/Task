@@ -19,5 +19,9 @@ class HandleViewController extends Controller
         return view('app.object');
     }
 
+    public function todoList(){
+        return view('app.todo-list');
+    }
+
 
 }
