@@ -19,7 +19,9 @@
                     <label @dblclick="editTodo(todo)">{{todo.title}}</label>
                     <button class="destroy" @click="deleteTodo(todo)"></button>
                 </div>
-                <input class="edit" type="text" v-model="todo.title" @keyup.enter="editingDone()">
+                <input class="edit" type="text" v-model="todo.title"
+                    @keyup.enter="editingDone()"
+                    @keyup.esc="canselEditing(todo)">
             </li>
         </ul>
         <div v-if="newTodo !== ''" style="position: relative">
@@ -66,17 +68,29 @@
             });
         }
     };
+
+    var todos_storage = {
+        fetch:function(){
+            var todos = JSON.parse( localStorage.getItem('todos') || '[]');
+            return todos;
+        },
+        save:function(todos){
+            localStorage.setItem('todos', JSON.stringify(todos));
+        }
+    }
+
     export default {
         data(){
             return {
-                todos:[
-                    {title: 'test1', completed:true},
-                    {title: 'test2', completed:false},
-                ],
+                // todos:[
+                //     {title: 'test1', completed:true},
+                //     {title: 'test2', completed:false},
+                // ],
+                todos: todos_storage.fetch(),
                 newTodo:'',
                 visibility: 'all',
                 editingTodo:null,
-
+                oldTitle : '',
             }
         },
         computed:{
@@ -129,11 +143,25 @@
                 this.todos = filters.active(this.todos);
             },
             editTodo(todo){
-                console.log(todo);
-                this.editingTodo = todo;
+                this.editingTodo    = todo;
+                this.oldTitle       = this.editingTodo.title;
             },
             editingDone(){
-                this.editingTodo = null;
+                this.editingTodo.title == '' ? this.deleteTodo(this.editingTodo) : this.editingTodo = null;
+            },
+            canselEditing(){
+                this.editingTodo.title =  this.oldTitle;
+                this.editingDone();
+                this.oldTitle = '';
+            }
+        },
+
+        watch:{
+            todos : {
+                handler:function(todos){
+                    todos_storage.save(todos)
+                },
+                deep: true
             }
         }
     }
