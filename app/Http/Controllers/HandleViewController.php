@@ -23,5 +23,9 @@ class HandleViewController extends Controller
         return view('app.todo-list');
     }
 
+    public function componentCourse(){
+        return view('app.component-course');
+    }
+
 
 }

@@ -19,6 +19,7 @@ Route::get('coursetro', 'HandleViewController@coursto');
 Route::get('example1', 'HandleViewController@example1');
 Route::get('object', 'HandleViewController@object');
 Route::get('todolist', 'HandleViewController@todoList');
+Route::get('component-course', 'HandleViewController@componentCourse');
 
 
 Route::get('vue/{vue_capture?}', function () {
