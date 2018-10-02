@@ -27,5 +27,8 @@ class HandleViewController extends Controller
         return view('app.component-course');
     }
 
+    public function hooksAndAjax(){
+        return view('app.hooks-and-ajax');
+    }
 
 }

@@ -26,6 +26,7 @@ Vue.component('slider', require('./components/Slider.vue'));
 Vue.component('objects', require('./components/Object.vue'));
 Vue.component('todolist', require('./components/TodoList.vue'));
 Vue.component('component-course', require('./components/ComponentCourse.vue'));
+Vue.component('hooks-and-ajax', require('./components/HookAndAjax.vue'));
 
 const app = new Vue({
     el: '#app',
